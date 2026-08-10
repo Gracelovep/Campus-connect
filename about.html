@@ -1,11 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Campus Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivy: #2F4A3E;
+    --ivy-deep: #22362D;
+    --sandstone: #C9A876;
+    --chalk: #F6F3EA;
+    --panel: #FFFDF8;
+    --ink: #20241F;
+    --brick: #A64B3C;
+    --line: rgba(32,36,31,0.14);
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--chalk);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before{
+    content: "";
+    position: fixed; inset: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(32,36,31,0.035) 1px, transparent 1px);
+    background-size: 4px 4px;
+    z-index: 0;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 1040px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  header{
+    position: sticky; top: 0;
+    background: rgba(246,243,234,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+    z-index: 10;
+  }
+  .header-row{
+    max-width: 1040px; margin: 0 auto; padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand{ display: flex; align-items: center; gap: 12px; }
+  .brand-mark{
+    width: 30px; height: 30px; border-radius: 3px;
+    background: var(--ivy); color: var(--chalk);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500;
+  }
+  .brand-name{
+    font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ivy-deep);
+  }
+  .back{
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px;
+    text-decoration: none; color: rgba(32,36,31,0.6);
+  }
+  .back:hover{ color: var(--brick); }
+
+  /* hero */
+  .hero{ padding: 80px 0 56px; border-bottom: 1px solid var(--line); }
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--brick);
+    margin-bottom: 20px;
+  }
+  .eyebrow::before{
+    content: ""; display: inline-block; width: 22px; height: 1px;
+    background: var(--brick); margin-right: 10px; vertical-align: middle;
+  }
+  h1{
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: clamp(38px, 5.6vw, 60px);
+    line-height: 1.05; letter-spacing: -0.01em;
+    margin: 0 0 20px; color: var(--ivy-deep);
+  }
+  h1 em{ font-style: italic; font-weight: 400; color: var(--brick); }
+  .hero p{ font-size: 17px; line-height: 1.65; max-width: 560px; color: rgba(32,36,31,0.72); margin: 0; }
+
+  /* stat strip — signature element */
+  .stats{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat{
+    padding: 34px 24px;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child{ border-right: none; }
+  .stat .n{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 40px;
+    color: var(--ivy-deep);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat .l{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(32,36,31,0.5);
+  }
+  @media (max-width: 700px){
+    .stats{ grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2){ border-right: none; }
+  }
+
+  /* story / mission */
+  .section{ padding: 72px 0; border-bottom: 1px solid var(--line); }
+  .split{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+  }
+  .split .label{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--brick);
+    padding-top: 6px;
+  }
+  .split h2{
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 28px; margin: 0 0 18px; color: var(--ivy-deep);
+  }
+  .split p{
+    font-size: 15.5px; line-height: 1.7; color: rgba(32,36,31,0.72);
+    margin: 0 0 16px; max-width: 620px;
+  }
+  .split p:last-child{ margin-bottom: 0; }
+  @media (max-width: 640px){
+    .split{ grid-template-columns: 1fr; gap: 14px; }
+  }
+
+  /* values board */
+  .values-head{ margin-bottom: 30px; }
+  .values-head h2{
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 26px; margin: 0; color: var(--ivy-deep);
+  }
+  .board{ border-top: 1px solid var(--ink); }
+  .entry{
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    align-items: center;
+    gap: 28px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .wing{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px; font-weight: 500;
+    width: 48px; height: 48px;
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ivy-deep);
+    flex-shrink: 0;
+  }
+  .entry-copy h3{
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 20px; margin: 0 0 6px; letter-spacing: -0.005em;
+  }
+  .entry-copy p{
+    margin: 0; font-size: 14.5px; line-height: 1.55;
+    color: rgba(32,36,31,0.62); max-width: 520px;
+  }
+  @media (max-width: 640px){
+    .entry{ grid-template-columns: 48px 1fr; }
+    .wing{ width: 40px; height: 40px; font-size: 12px; }
+  }
+
+  /* team */
+  .team-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+  }
+  .member{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .member .initials{
+    width: 40px; height: 40px;
+    border-radius: 3px;
+    background: var(--ivy);
+    color: var(--chalk);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .member h4{
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 17px; margin: 0 0 4px; color: var(--ivy-deep);
+  }
+  .member .role{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--brick); margin-bottom: 10px;
+  }
+  .member p{ margin: 0; font-size: 13.5px; line-height: 1.55; color: rgba(32,36,31,0.62); }
+
+  .cta-row{ margin-top: 30px; }
+  .cta{
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--chalk); background: var(--ivy);
+    padding: 12px 20px; border-radius: 3px;
+    text-decoration: none; transition: background 0.2s ease;
+  }
+  .cta:hover{ background: var(--ivy-deep); }
+
+  footer{
+    padding: 40px 0 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(32,36,31,0.45);
+  }
+  footer .dot{ color: var(--sandstone); }
+  @media (max-width: 560px){
+    footer{ flex-direction: column; gap: 8px; align-items: flex-start; }
+    .wrap{ padding: 0 20px; }
+    .header-row{ padding: 16px 20px; }
+  }
+</style>
 </head>
 <body>
-  
+
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-mark">CC</div>
+      <div class="brand-name">Campus Connect</div>
+    </div>
+    <a class="back" href="#">← Back to directory</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">About</div>
+    <h1>Built by students,<br>for the <em>first day</em> and every one after.</h1>
+    <p>Campus Connect started as a student project to fix a simple problem: everything you need to settle in lives on a dozen different websites. We put it behind one door.</p>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><div class="n">2019</div><div class="l">Founded</div></div>
+    <div class="stat"><div class="n">14k+</div><div class="l">Students served</div></div>
+    <div class="stat"><div class="n">120+</div><div class="l">Clubs listed</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">Departments</div></div>
+  </div>
+
+  <section class="section">
+    <div class="split">
+      <div class="label">Our story</div>
+      <div>
+        <h2>Started in a dorm room</h2>
+        <p>Campus Connect began in 2019 when a small group of students got tired of bouncing between the housing portal, the transit PDF, a club spreadsheet, and a resources page nobody could find. We built a single directory instead.</p>
+        <p>What started as a weekend project is now maintained by a student team working alongside Student Services, updated every semester with real listings, real routes, and real office hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="split">
+      <div class="label">Mission</div>
+      <div>
+        <h2>One door, no dead ends</h2>
+        <p>Every student should be able to find housing, get where they're going, find their people, and get help — without hunting across ten different sites to do it. We keep the directory current so you don't have to guess.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="values-head"><h2>What we stand for</h2></div>
+    <div class="board">
+      <div class="entry">
+        <div class="wing">01</div>
+        <div class="entry-copy">
+          <h3>Kept current</h3>
+          <p>Listings, routes, and office hours are reviewed every semester — not left to go stale.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="wing">02</div>
+        <div class="entry-copy">
+          <h3>Built with students</h3>
+          <p>Every section is shaped by feedback from the students who actually use it.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="wing">03</div>
+        <div class="entry-copy">
+          <h3>No dead ends</h3>
+          <p>If a page can't answer your question, it points you to a real person who can.</p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="wing">04</div>
+        <div class="entry-copy">
+          <h3>Free, always</h3>
+          <p>Funded by the student activity fee — never ads, never a paywall.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="border-bottom:none;">
+    <div class="values-head"><h2>The team</h2></div>
+    <div class="team-grid">
+      <div class="member">
+        <div class="initials">MJ</div>
+        <h4>Maya Jensen</h4>
+        <div class="role">Founder & Lead</div>
+        <p>Started the project in her second year. Now oversees the whole directory.</p>
+      </div>
+      <div class="member">
+        <div class="initials">DP</div>
+        <h4>Diego Park</h4>
+        <div class="role">Housing Liaison</div>
+        <p>Keeps accommodation listings verified and up to date each semester.</p>
+      </div>
+      <div class="member">
+        <div class="initials">RA</div>
+        <h4>Riya Adeyemi</h4>
+        <div class="role">Transit & Logistics</div>
+        <p>Works with campus operations to keep shuttle routes accurate.</p>
+      </div>
+      <div class="member">
+        <div class="initials">TL</div>
+        <h4>Theo Lindqvist</h4>
+        <div class="role">Community Lead</div>
+        <p>Manages club listings and the events calendar with student government.</p>
+      </div>
+    </div>
+    <div class="cta-row"><a class="cta" href="#">Get in touch →</a></div>
+  </section>
+
+  <footer>
+    <div>Campus Connect <span class="dot">·</span> Student Services</div>
+    <div>Made for your first year and every one after</div>
+  </footer>
+
+</div>
+
 </body>
 </html>

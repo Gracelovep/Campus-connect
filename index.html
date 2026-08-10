@@ -1,13 +1,338 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivy: #2F4A3E;
+    --ivy-deep: #22362D;
+    --sandstone: #C9A876;
+    --chalk: #F6F3EA;
+    --ink: #20241F;
+    --moss: #8AA68C;
+    --brick: #A64B3C;
+    --line: rgba(32,36,31,0.14);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--chalk);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* subtle paper/cork texture */
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(rgba(32,36,31,0.035) 1px, transparent 1px);
+    background-size: 4px 4px;
+    z-index: 0;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    padding: 28px 0 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .header-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark{
+    width: 34px; height: 34px;
+    border-radius: 3px;
+    background: var(--ivy);
+    color: var(--chalk);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .brand-name{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ivy-deep);
+  }
+  .tag{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ivy);
+    opacity: 0.65;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 88px 0 64px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brick);
+    margin-bottom: 22px;
+  }
+  .eyebrow::before{
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 1px;
+    background: var(--brick);
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  h1{
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(40px, 6.2vw, 72px);
+    line-height: 1.03;
+    letter-spacing: -0.01em;
+    margin: 0 0 22px;
+    color: var(--ivy-deep);
+  }
+  h1 em{
+    font-style: italic;
+    font-weight: 400;
+    color: var(--brick);
+  }
+  .hero p{
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 480px;
+    color: rgba(32,36,31,0.72);
+    margin: 0;
+  }
+
+  /* ---------- directory board (signature element) ---------- */
+  .directory{
+    padding: 64px 0 40px;
+  }
+  .directory-head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .directory-head h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 26px;
+    margin: 0;
+    color: var(--ivy-deep);
+  }
+  .directory-head span{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: rgba(32,36,31,0.5);
+  }
+
+  .board{
+    border-top: 1px solid var(--ink);
+  }
+
+  .entry{
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items: center;
+    gap: 28px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s ease, padding-left 0.25s ease;
+    position: relative;
+  }
+  .entry:hover{
+    background: rgba(47,74,62,0.045);
+    padding-left: 10px;
+  }
+  .entry:hover .go{
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .entry:hover .wing{
+    background: var(--ivy);
+    color: var(--chalk);
+    border-color: var(--ivy);
+  }
+
+  .wing{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ivy-deep);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .entry-copy h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 6px;
+    letter-spacing: -0.005em;
+  }
+  .entry-copy p{
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(32,36,31,0.62);
+    max-width: 480px;
+  }
+
+  .go{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--brick);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: all 0.25s ease;
+  }
+
+  @media (max-width: 640px){
+    .entry{ grid-template-columns: 48px 1fr; row-gap: 8px; }
+    .go{ display: none; }
+    .wing{ width: 40px; height: 40px; font-size: 12px; }
+  }
+
+  /* ---------- footer strip ---------- */
+  footer{
+    margin-top: 40px;
+    padding: 28px 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: rgba(32,36,31,0.45);
+  }
+  footer .dot{ color: var(--sandstone); }
+
+  @media (max-width: 560px){
+    footer{ flex-direction: column; gap: 8px; align-items: flex-start; }
+    .wrap{ padding: 0 20px; }
+  }
+</style>
 </head>
 <body>
-  <h1>Welcome to Campus Connect</h1>
 
-  
+<div class="wrap">
+
+  <header>
+    <div class="header-row">
+      <div class="brand">
+        <div class="brand-mark">CC</div>
+        <div class="brand-name">Campus Connect</div>
+      </div>
+      <div class="tag">Student Portal</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Welcome, new & returning students</div>
+    <h1>Everything on<br>campus, <em>one door</em> away.</h1>
+    <p>Your directory for settling in and staying connected — housing, getting around, finding your people, and the resources that back you up along the way.</p>
+  </section>
+
+  <section class="directory">
+    <div class="directory-head">
+      <h2>Directory</h2>
+      <span>4 wings</span>
+    </div>
+
+    <div class="board">
+
+      <a class="entry" href="#accommodation">
+        <div class="wing">A</div>
+        <div class="entry-copy">
+          <h3>Find accommodation</h3>
+          <p>Browse dorms, off-campus listings, and roommate matching to lock in a place that feels like home.</p>
+        </div>
+        <div class="go">View listings →</div>
+      </a>
+
+      <a class="entry" href="#transportation">
+        <div class="wing">T</div>
+        <div class="entry-copy">
+          <h3>Learn about transportation</h3>
+          <p>Shuttle routes, bike share, transit passes, and parking — everything to get from A to B on time.</p>
+        </div>
+        <div class="go">View routes →</div>
+      </a>
+
+      <a class="entry" href="#association">
+        <div class="wing">S</div>
+        <div class="entry-copy">
+          <h3>Discover student association</h3>
+          <p>Clubs, societies, events, and the student government that represents you on campus.</p>
+        </div>
+        <div class="go">Explore groups →</div>
+      </a>
+
+      <a class="entry" href="#resources">
+        <div class="wing">R</div>
+        <div class="entry-copy">
+          <h3>Access important resources</h3>
+          <p>Academic advising, health services, financial aid, and support lines whenever you need them.</p>
+        </div>
+        <div class="go">Get support →</div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <div>Campus Connect <span class="dot">·</span> Student Services</div>
+    <div>Made for your first year and every one after</div>
+  </footer>
+
+</div>
+
 </body>
 </html>
